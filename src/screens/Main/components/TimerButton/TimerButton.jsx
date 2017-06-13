@@ -10,7 +10,7 @@ const TimerButton = ({ minutes, onAddMinutes, onSubstractMinutes }) => (
   <div>
     <AdjustmentButton
       icon={<Substract colorIndex="accent-1" />}
-      onClick={() => onSubstractMinutes}
+      onClick={onSubstractMinutes}
     />
     <Value
       value={minutes}
@@ -20,7 +20,7 @@ const TimerButton = ({ minutes, onAddMinutes, onSubstractMinutes }) => (
     />
     <AdjustmentButton
       icon={<Add colorIndex="accent-1" />}
-      onClick={() => onAddMinutes}
+      onClick={onAddMinutes}
     />
   </div>
 );

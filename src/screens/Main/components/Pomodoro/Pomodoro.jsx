@@ -1,35 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import TimerButton from '../TimerButton';
 import TimerButtonContainer from '../../containers/TimerButtonContainer';
 import Clock from '../Clock';
-import StartButton from '../StartButton';
 
-const Pomodoro =
-({ workMinutes, breakMinutes, workMinutesLeft, breakMinutesLeft,
-  onStartButtonClick, mode }) => (
-    <div>
-      <TimerButtonContainer
-        minutes={workMinutes}
-      />
-      <TimerButtonContainer
-        minutes={breakMinutes}
-      />
-      <Clock
-        minutes={mode === 'WORK' ? workMinutesLeft : breakMinutesLeft}
-        mode={mode}
-        maxMinutes={mode === 'WORK' ? workMinutes : breakMinutes}
-      />
-      <StartButton onClick={onStartButtonClick} />
-    </div>
+const Pomodoro = ({ workSeconds, breakSeconds, workSecondsLeft, breakSecondsLeft, mode }) => (
+  <div>
+    <TimerButtonContainer
+      minutes={workSeconds}
+    />
+    <TimerButtonContainer
+      minutes={breakSeconds}
+    />
+    <Clock
+      seconds={mode === 'WORK' ? workSecondsLeft : mode === 'BREAK' && breakSecondsLeft}
+      mode={mode}
+      maxMinutes={mode === 'WORK' ? workSeconds : mode === 'BREAK' && breakSeconds}
+    />
+  </div>
 );
 
 Pomodoro.propTypes = {
-  workMinutes: PropTypes.number.isRequired,
-  breakMinutes: PropTypes.number.isRequired,
-  workMinutesLeft: PropTypes.number.isRequired,
-  breakMinutesLeft: PropTypes.number.isRequired,
+  workSeconds: PropTypes.number.isRequired,
+  breakSeconds: PropTypes.number.isRequired,
+  workSecondsLeft: PropTypes.number.isRequired,
+  breakSecondsLeft: PropTypes.number.isRequired,
   mode: PropTypes.string.isRequired,
-  onStartButtonClick: PropTypes.func.isRequired,
 };
 export default Pomodoro;
