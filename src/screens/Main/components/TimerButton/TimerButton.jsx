@@ -9,7 +9,7 @@ import AdjustmentButton from '../AdjustmentButton';
 const TimerButton = ({ minutes, onAddMinutes, onSubstractMinutes }) => (
   <div>
     <AdjustmentButton
-      icon={<Substract />}
+      icon={<Substract colorIndex="accent-1" />}
       onClick={() => onSubstractMinutes}
     />
     <Value
@@ -19,7 +19,7 @@ const TimerButton = ({ minutes, onAddMinutes, onSubstractMinutes }) => (
       size="medium"
     />
     <AdjustmentButton
-      icon={<Add />}
+      icon={<Add colorIndex="accent-1" />}
       onClick={() => onAddMinutes}
     />
   </div>
