@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import './index.css';
+import './styles.scss';
 import '../node_modules/grommet/scss/vanilla/index.scss';
 import '../node_modules/grommet-css';
 

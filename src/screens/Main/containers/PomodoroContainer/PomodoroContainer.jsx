@@ -9,10 +9,10 @@ class PomodoroContainer extends Component {
     // wanted- the time which the user set at start by the timers
     // current
     this.state = {
-      workSeconds: 2,
-      breakSeconds: 3,
-      workSecondsLeft: 2,
-      breakSecondsLeft: 3,
+      workSeconds: 1500,
+      breakSeconds: 180,
+      workSecondsLeft: 1500,
+      breakSecondsLeft: 180,
       mode: 'WORK',
       rounds: 0,
       isTick: true,
@@ -93,6 +93,19 @@ class PomodoroContainer extends Component {
     }
     // const { workMinutes, breakMinutes, workMinutesLeft, breakMinutesLeft, mode } = this.state;
   }
+  handleUpdateWorkMinutes = (workMinutes) => {
+    const { isTick } = this.state;
+    if (!isTick && workMinutes > 0) {
+      console.log(`updating work minutes to ${workMinutes}`);
+      this.setState({ workSeconds: workMinutes * 60, workSecondsLeft: workMinutes * 60 });
+    }
+  }
+  handleUpdateBreakMinutes = (breakMinutes) => {
+    const { isTick } = this.state;
+    if (!isTick && breakMinutes > 0) {
+      this.setState({ breakSeconds: breakMinutes * 60, breakSecondsLeft: breakMinutes * 60 });
+    }
+  }
   render() {
     const { workSeconds, breakSeconds, workSecondsLeft,
       breakSecondsLeft, mode, isTick } = this.state;
@@ -104,7 +117,9 @@ class PomodoroContainer extends Component {
           workSecondsLeft={workSecondsLeft}
           breakSecondsLeft={breakSecondsLeft}
           mode={mode}
-
+          onUpdateWorkMinutes={this.handleUpdateWorkMinutes}
+          onUpdateBreakMinutes={this.handleUpdateBreakMinutes}
+          isTick={isTick}
         />
         <ActionButtons
           onRestartTimer={this.restartTimer}

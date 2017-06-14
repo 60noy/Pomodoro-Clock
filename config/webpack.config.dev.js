@@ -67,7 +67,7 @@ module.exports = {
     // There are also additional JS chunk files if you use code splitting.
     chunkFilename: 'static/js/[name].chunk.js',
     // This is the URL that app is served from. We use "/" in development.
-    publicPath: publicPath,
+    publicPath,
     // Point sourcemap entries to original disk location
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath),
@@ -79,13 +79,13 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/253
     modules: ['node_modules', paths.appNodeModules].concat(
       // It is guaranteed to exist because we tweak it in `env.js`
-      process.env.NODE_PATH.split(path.delimiter).filter(Boolean)
+      process.env.NODE_PATH.split(path.delimiter).filter(Boolean),
     ),
     // These are the reasonable defaults supported by the Node ecosystem.
     // We also include JSX as a common component filename extension to support
     // some tools, although we do not recommend using it, see:
     // https://github.com/facebookincubator/create-react-app/issues/290
-    extensions: ['.js', '.json', '.jsx','.scss'],
+    extensions: ['.js', '.json', '.jsx', '.scss'],
     alias: {
 
       // Support React Native Web
@@ -213,18 +213,18 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-         use: [
+        use: [
            { loader: 'file-loader', options: { name: '[name].css' } },
-           { loader: 'sass-loader',
-             options: {
-               outputStyle: 'compressed',
-               includePaths: [
-                 './node_modules'
-               ]
-             }
-           }
-         ]
-     },
+          { loader: 'sass-loader',
+            options: {
+              outputStyle: 'compressed',
+              includePaths: [
+                './node_modules',
+              ],
+            },
+          },
+        ],
+      },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "file" loader exclusion list.
     ],
@@ -234,14 +234,14 @@ module.exports = {
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     // In development, this will be an empty string.
-    new ExtractTextPlugin("styles.scss"),
+    new ExtractTextPlugin('styles.scss'),
 
     new webpack.LoaderOptionsPlugin({
       options: {
         sassLoader: {
-          includePaths: [path.resolve(__dirname, "./node_modules")]
-        }
-      }
+          includePaths: [path.resolve(__dirname, './node_modules')],
+        },
+      },
     }),
     new InterpolateHtmlPlugin(env.raw),
     // Generates an `index.html` file with the <script> injected.

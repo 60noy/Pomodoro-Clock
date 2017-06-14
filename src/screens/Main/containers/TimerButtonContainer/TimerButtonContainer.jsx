@@ -17,15 +17,23 @@ class TimerButtonContainer extends Component {
   }
   // substracts 1 minute to the timers's minutes in state
   handleSubstractMinutes = () => {
-    console.log(`substract minutes from${this.state.minutes}`);
-    const { minutes } = this.state;
-    this.setState({ minutes: minutes - 1 });
+    let { minutes } = this.state;
+    if (minutes > 1 && !this.props.isTick) {
+      console.log(`substract minutes from${this.state.minutes}`);
+      minutes -= 1;
+      this.setState({ minutes });
+      this.props.onUpdateMinutes(minutes);
+    }
   }
 
   // adds 1 minute to the timers's minutes in state
   handleAddMinutes = () => {
-    const { minutes } = this.state;
-    this.setState({ minutes: minutes + 1 });
+    let { minutes } = this.state;
+    if (minutes > 1 && !this.props.isTick) {
+      minutes += 1;
+      this.setState({ minutes });
+      this.props.onUpdateMinutes(minutes);
+    }
   }
 
   render() {
@@ -35,6 +43,7 @@ class TimerButtonContainer extends Component {
         minutes={minutes}
         onSubstractMinutes={this.handleSubstractMinutes}
         onAddMinutes={this.handleAddMinutes}
+        color={this.props.color}
       />
     );
   }
@@ -42,5 +51,8 @@ class TimerButtonContainer extends Component {
 
 TimerButtonContainer.propTypes = {
   minutes: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired,
+  onUpdateMinutes: PropTypes.func.isRequired,
+  isTick: PropTypes.bool.isRequired,
 };
 export default TimerButtonContainer;

@@ -6,20 +6,20 @@ import Value from 'grommet/components/Value';
 import AdjustmentButton from '../AdjustmentButton';
 
 
-const TimerButton = ({ minutes, onAddMinutes, onSubstractMinutes }) => (
+const TimerButton = ({ minutes, onAddMinutes, onSubstractMinutes, color }) => (
   <div>
     <AdjustmentButton
-      icon={<Substract colorIndex="accent-1" />}
+      icon={<Substract colorIndex={color} />}
       onClick={onSubstractMinutes}
     />
     <Value
       value={minutes}
       label="Minutes"
-      colorIndex="accent-1"
+      colorIndex={color}
       size="medium"
     />
     <AdjustmentButton
-      icon={<Add colorIndex="accent-1" />}
+      icon={<Add colorIndex={color} />}
       onClick={onAddMinutes}
     />
   </div>
@@ -29,5 +29,6 @@ TimerButton.propTypes = {
   minutes: PropTypes.number.isRequired,
   onSubstractMinutes: PropTypes.func.isRequired,
   onAddMinutes: PropTypes.func.isRequired,
+  color: PropTypes.string.isRequired,
 };
 export default TimerButton;
