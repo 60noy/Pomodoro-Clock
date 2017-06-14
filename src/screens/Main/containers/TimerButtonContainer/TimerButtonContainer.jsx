@@ -18,7 +18,7 @@ class TimerButtonContainer extends Component {
   // substracts 1 minute to the timers's minutes in state
   handleSubstractMinutes = () => {
     let { minutes } = this.state;
-    if (minutes > 1 && !this.props.isTick) {
+    if (minutes >= 2 && !this.props.isTick) {
       console.log(`substract minutes from${this.state.minutes}`);
       minutes -= 1;
       this.setState({ minutes });
@@ -29,7 +29,7 @@ class TimerButtonContainer extends Component {
   // adds 1 minute to the timers's minutes in state
   handleAddMinutes = () => {
     let { minutes } = this.state;
-    if (minutes > 1 && !this.props.isTick) {
+    if (!this.props.isTick) {
       minutes += 1;
       this.setState({ minutes });
       this.props.onUpdateMinutes(minutes);

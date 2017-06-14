@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 // import Pomodoro from '../../components/Pomodoro';
+import Box from 'grommet/components/Box';
+import Headline from 'grommet/components/Headline';
 import Pomodoro from '../../components/Pomodoro';
 import ActionButtons from '../../components/ActionButtons';
 
@@ -9,32 +11,36 @@ class PomodoroContainer extends Component {
     // wanted- the time which the user set at start by the timers
     // current
     this.state = {
-      workSeconds: 1500,
+      workSeconds: 120,
       breakSeconds: 180,
-      workSecondsLeft: 1500,
+      workSecondsLeft: 120,
       breakSecondsLeft: 180,
       mode: 'WORK',
       rounds: 0,
-      isTick: true,
+      isTick: false,
+      intervalID: '',
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     // TODO: add buttons start func and inside the current interval
-    const { isTick } = this.state;
     // ticks every second if isTick is true
-    if (isTick) {
-      setInterval(() => {
-        this.tick();
-      }, 1000);
-    }
   }
   // starts the timer
   startTimer = () => {
-    this.setState({ isTick: true });
+    const { isTick, intervalID } = this.state;
+    // checks if there is already an interval and finishes him
+    if (intervalID) {
+      clearInterval(intervalID);
+    }
+    // starts new interval and sets its ID in the state
+    const newIntervalID = setInterval(() => {
+      if (!isTick) { this.tick(); }
+    }, 1000);
+
+    this.setState({ isTick: true, intervalID: newIntervalID });
   }
   // stops the timer
   pauseTimer = () => {
-    console.log('stops');
     this.setState({ isTick: false });
   }
   // resumes the timer with the current mode
@@ -48,16 +54,16 @@ class PomodoroContainer extends Component {
       const { workSeconds } = this.state;
       this.setState({ workSecondsLeft: workSeconds, isTick: true });
     } else if (mode === 'BREAK') {
-      const { breakSeconds } = this.state;
-      this.setState({ breakSecondsLeft: breakSeconds, isTick: true, mode: 'WORK' });
+      const { breakSeconds, workSeconds } = this.state;
+      this.setState({ breakSecondsLeft: breakSeconds, isTick: true, mode: 'WORK', workSecondsLeft: workSeconds });
     }
   }
   // ticks every seconds depending on the mode and triggers
   // toggleMode() on the last second
   tick = () => {
     const { mode, workSecondsLeft, breakSecondsLeft, isTick } = this.state;
-    // checks if the wanted mode is work and if this is the last second
     if (isTick) {
+      // checks if the wanted mode is work and if this is the last second
       if (mode === 'WORK') {
         if (workSecondsLeft === 1) {
           this.toggleMode('BREAK');
@@ -86,7 +92,8 @@ class PomodoroContainer extends Component {
     } else if (desiredMode === 'BREAK') {
       const { breakSeconds } = this.state;
       this.setState({
-        breakSecondsLeft: breakSeconds, mode: 'BREAK',
+        breakSecondsLeft: breakSeconds,
+        mode: 'BREAK',
       });
     } else {
       this.setState({ isTick: false });
@@ -97,13 +104,18 @@ class PomodoroContainer extends Component {
     const { isTick } = this.state;
     if (!isTick && workMinutes > 0) {
       console.log(`updating work minutes to ${workMinutes}`);
-      this.setState({ workSeconds: workMinutes * 60, workSecondsLeft: workMinutes * 60 });
+      this.setState({
+        workSeconds: workMinutes * 60,
+        workSecondsLeft: workMinutes * 60,
+      });
     }
   }
   handleUpdateBreakMinutes = (breakMinutes) => {
     const { isTick } = this.state;
     if (!isTick && breakMinutes > 0) {
-      this.setState({ breakSeconds: breakMinutes * 60, breakSecondsLeft: breakMinutes * 60 });
+      this.setState({
+        breakSeconds: breakMinutes * 60,
+        breakSecondsLeft: breakMinutes * 60 });
     }
   }
   render() {
@@ -111,23 +123,30 @@ class PomodoroContainer extends Component {
       breakSecondsLeft, mode, isTick } = this.state;
     return (
       <div>
-        <Pomodoro
-          workSeconds={workSeconds}
-          breakSeconds={breakSeconds}
-          workSecondsLeft={workSecondsLeft}
-          breakSecondsLeft={breakSecondsLeft}
-          mode={mode}
-          onUpdateWorkMinutes={this.handleUpdateWorkMinutes}
-          onUpdateBreakMinutes={this.handleUpdateBreakMinutes}
-          isTick={isTick}
-        />
-        <ActionButtons
-          onRestartTimer={this.restartTimer}
-          onPauseTimer={this.pauseTimer}
-          onStartTimer={this.startTimer}
-          onResumeTimer={this.resumeTimer}
-          isTick={isTick}
-        />
+        <Box
+          align="center"
+        >
+          <Headline size="large" strong>
+            Pomodoro Clock
+          </Headline>
+          <Pomodoro
+            workSeconds={workSeconds}
+            breakSeconds={breakSeconds}
+            workSecondsLeft={workSecondsLeft}
+            breakSecondsLeft={breakSecondsLeft}
+            mode={mode}
+            onUpdateWorkMinutes={this.handleUpdateWorkMinutes}
+            onUpdateBreakMinutes={this.handleUpdateBreakMinutes}
+            isTick={isTick}
+          />
+          <ActionButtons
+            onRestartTimer={this.restartTimer}
+            onPauseTimer={this.pauseTimer}
+            onStartTimer={this.startTimer}
+            onResumeTimer={this.resumeTimer}
+            isTick={isTick}
+          />
+        </Box>
       </div>
     );
   }

@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from 'grommet/components/Box';
 import TimerButtonContainer from '../../containers/TimerButtonContainer';
 
 const TimerButtonsWrapper =
 ({ workSeconds, breakSeconds, onUpdateWorkMinutes, onUpdateBreakMinutes, isTick }) => (
-  <div>
+  <Box direction="row" alignContent="between">
     <TimerButtonContainer
       minutes={workSeconds / 60}
       color="neutral-1"
@@ -17,7 +18,7 @@ const TimerButtonsWrapper =
       onUpdateMinutes={onUpdateBreakMinutes}
       isTick={isTick}
     />
-  </div>
+  </Box>
 );
 
 TimerButtonsWrapper.propTypes = {

@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from 'grommet/components/Box';
 import TimerButtonsWrapper from '../TimerButtonsWrapper';
 import Clock from '../Clock';
+import Hint from '../Hint';
 
 const Pomodoro = ({ workSeconds, breakSeconds, workSecondsLeft, breakSecondsLeft, mode,
    onUpdateBreakMinutes, onUpdateWorkMinutes, isTick }) => (
-     <div>
+     <Box align="center">
+       <Hint times={mode === 'WORK' ? Math.floor(workSeconds / workSecondsLeft) : Math.floor(workSeconds / workSecondsLeft)} />
        <TimerButtonsWrapper
          workSeconds={workSeconds}
          breakSeconds={breakSeconds}
@@ -13,12 +16,14 @@ const Pomodoro = ({ workSeconds, breakSeconds, workSecondsLeft, breakSecondsLeft
          onUpdateWorkMinutes={onUpdateWorkMinutes}
          isTick={isTick}
        />
-       <Clock
-         seconds={mode === 'WORK' ? workSecondsLeft : mode === 'BREAK' && breakSecondsLeft}
-         mode={mode}
-         maxMinutes={mode === 'WORK' ? workSeconds * 60 : mode === 'BREAK' && breakSeconds * 60}
-       />
-     </div>
+       <Box align="center">
+         <Clock
+           seconds={mode === 'WORK' ? workSecondsLeft : mode === 'BREAK' && breakSecondsLeft}
+           mode={mode}
+           maxMinutes={mode === 'WORK' ? workSeconds * 60 : mode === 'BREAK' && breakSeconds * 60}
+         />
+       </Box>
+     </Box>
 );
 
 Pomodoro.propTypes = {

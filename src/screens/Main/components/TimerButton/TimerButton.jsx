@@ -3,26 +3,27 @@ import PropTypes from 'prop-types';
 import Substract from 'grommet/components/icons/base/Subtract';
 import Add from 'grommet/components/icons/base/Add';
 import Value from 'grommet/components/Value';
+import Box from 'grommet/components/Box';
 import AdjustmentButton from '../AdjustmentButton';
 
 
 const TimerButton = ({ minutes, onAddMinutes, onSubstractMinutes, color }) => (
-  <div>
+  <Box align="center" direction="row">
     <AdjustmentButton
-      icon={<Substract colorIndex={color} />}
+      icon={<Substract colorIndex={color} size="large" />}
       onClick={onSubstractMinutes}
     />
     <Value
       value={minutes}
       label="Minutes"
       colorIndex={color}
-      size="medium"
+      size="large"
     />
     <AdjustmentButton
-      icon={<Add colorIndex={color} />}
+      icon={<Add colorIndex={color} size="large" />}
       onClick={onAddMinutes}
     />
-  </div>
+  </Box>
 );
 
 TimerButton.propTypes = {
