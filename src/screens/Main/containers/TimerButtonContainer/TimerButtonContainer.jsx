@@ -44,6 +44,7 @@ class TimerButtonContainer extends Component {
         onSubstractMinutes={this.handleSubstractMinutes}
         onAddMinutes={this.handleAddMinutes}
         color={this.props.color}
+        type={this.props.type}
       />
     );
   }
@@ -54,5 +55,6 @@ TimerButtonContainer.propTypes = {
   color: PropTypes.string.isRequired,
   onUpdateMinutes: PropTypes.func.isRequired,
   isTick: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
 };
 export default TimerButtonContainer;

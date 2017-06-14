@@ -11,19 +11,15 @@ class PomodoroContainer extends Component {
     // wanted- the time which the user set at start by the timers
     // current
     this.state = {
-      workSeconds: 120,
-      breakSeconds: 180,
-      workSecondsLeft: 120,
-      breakSecondsLeft: 180,
+      workSeconds: 1500,
+      workSecondsLeft: 1500,
+      breakSeconds: 120,
+      breakSecondsLeft: 120,
       mode: 'WORK',
       rounds: 0,
       isTick: false,
       intervalID: '',
     };
-  }
-  componentDidMount() {
-    // TODO: add buttons start func and inside the current interval
-    // ticks every second if isTick is true
   }
   // starts the timer
   startTimer = () => {
@@ -120,7 +116,7 @@ class PomodoroContainer extends Component {
   }
   render() {
     const { workSeconds, breakSeconds, workSecondsLeft,
-      breakSecondsLeft, mode, isTick } = this.state;
+      breakSecondsLeft, mode, isTick, rounds } = this.state;
     return (
       <div>
         <Box
@@ -146,6 +142,13 @@ class PomodoroContainer extends Component {
             onResumeTimer={this.resumeTimer}
             isTick={isTick}
           />
+          {rounds > 0 && (
+            <Headline
+              size="small"
+              margin="small"
+            >
+              {rounds} Rounds already!
+          </Headline>)}
         </Box>
       </div>
     );

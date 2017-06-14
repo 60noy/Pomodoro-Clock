@@ -11,12 +11,14 @@ const TimerButtonsWrapper =
       color="neutral-1"
       onUpdateMinutes={onUpdateWorkMinutes}
       isTick={isTick}
+      type="Work"
     />
     <TimerButtonContainer
       minutes={breakSeconds / 60}
       color="neutral-2"
       onUpdateMinutes={onUpdateBreakMinutes}
       isTick={isTick}
+      type="Break"
     />
   </Box>
 );
