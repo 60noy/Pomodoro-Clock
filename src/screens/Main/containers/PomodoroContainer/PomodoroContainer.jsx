@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import Pomodoro from '../../components/Pomodoro';
+
 import Box from 'grommet/components/Box';
 import Headline from 'grommet/components/Headline';
 import Pomodoro from '../../components/Pomodoro';
